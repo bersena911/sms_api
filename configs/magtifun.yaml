@@ -1,0 +1,31 @@
+magti_cookies:
+  __utmc: '181079995'
+  __utmz: 181079995.1530866669.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not%20provided)
+  user_name: ''
+  user_password: ''
+  __utma: 181079995.1463193371.1530866669.1530866669.1530878422.2
+  __utmt: '1'
+  __utmb: 181079995.1.10.1530878422
+
+magti_headers:
+  Origin: http://www.magtifun.ge
+  Accept-Encoding: gzip, deflate
+  Accept-Language: en-US,en;q=0.9
+  User-Agent: Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like
+    Gecko) Chrome/67.0.3396.99 Safari/537.36
+  Content-Type: application/x-www-form-urlencoded
+  Accept: "*/*"
+  Referer: http://www.magtifun.ge/index.php?page=2&lang=ge
+  X-Requested-With: XMLHttpRequest
+  Connection: keep-alive
+
+magti_data:
+  -
+    - "message_unicode"
+    - "0"
+  -
+    - "messages_count"
+    - "1"
+  -
+    - "total_recipients"
+    - "0"
