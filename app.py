@@ -9,7 +9,7 @@ magtifun = MagtiFun()
 
 
 @app.before_first_request
-def do_something_only_once():
+def init():
     logging.basicConfig(filename='logs.txt', level=logging.DEBUG)
 
 
