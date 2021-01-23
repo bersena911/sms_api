@@ -1,28 +1,30 @@
-import logging
-
 from flask import Flask, request, jsonify
 
-from magtifun.magtifun import MagtiFun
+from exceptions.handlers import error_handlers
+from models.requests.message_payload import MessagePayload
+from services.magtifun_service import MagtiFunService
 
 app = Flask(__name__)
-magtifun = MagtiFun()
 
-
-@app.before_first_request
-def init():
-    logging.basicConfig(filename='logs.txt', level=logging.DEBUG)
+for error_handler in error_handlers:
+    app.register_error_handler(*error_handler)
 
 
 @app.route('/', methods=['POST'])
 def send():
-    '''
-    Sends message to given numbers.
-    :return: Status response
-    '''
     data = request.get_json()
+
+    validator_response = MessagePayload().validate(data)
+    if validator_response:
+        return jsonify(validator_response)
+
+    username = data['username']
+    password = data['password']
     numbers = data['numbers']
     message = data['message']
-    if not isinstance(numbers, list):
-        return 500
+
+    magtifun = MagtiFunService(username=username, password=password)
+
     response = magtifun.send_message(message, numbers)
+
     return jsonify({'status': response.reason})
