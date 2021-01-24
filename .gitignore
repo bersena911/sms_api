@@ -5,3 +5,6 @@ logs.txt
 venv/
 *.pyc
 .env
+.aws-sam
+test_invokes
+samconfig.toml

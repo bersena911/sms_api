@@ -1,0 +1,16 @@
+Transform: AWS::Serverless-2016-10-31
+
+
+Resources:
+  MagtifunLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: 'MagtiFunAPI'
+      CodeUri: ./
+      Description: 'Send sms via Magti Fun'
+      Timeout: 120
+      Tracing: 'Active'
+      Handler: services.magtifun_service.lambda_handler
+      MemorySize: 128
+      Runtime: python3.8
+      AutoPublishAlias: live

@@ -1,9 +1,10 @@
+import json
 from typing import List
 
 import requests
 from lxml import html
 
-from exceptions.exceptions import NotAuthorized
+from models.lambda_response import LambdaResponse
 
 
 class MagtiFunService:
@@ -36,7 +37,7 @@ class MagtiFunService:
         html_response = html.fromstring(page)
         user_input = html_response.xpath('//input[@id="user"]')
         if user_input:
-            raise NotAuthorized()
+            raise Exception('Incorrect Credentials')
 
     def send_message(self, message: str, numbers: List[str]) -> requests.Response:
         send_url = 'http://www.magtifun.ge/scripts/sms_send.php'
@@ -52,3 +53,21 @@ class MagtiFunService:
 
         response = self._session.post(send_url, data=data, headers=headers)
         return response
+
+
+def lambda_handler(event: dict, context: dict) -> dict:
+    payload = event['body']
+    if isinstance(payload, str):
+        payload = json.loads(payload)
+    username = payload['username']
+    password = payload['password']
+    message = payload['message']
+    numbers = payload['numbers']
+    try:
+        magtifun = MagtiFunService(username=username, password=password)
+        response = magtifun.send_message(message, numbers)
+        status_code = response.status_code
+    except Exception:
+        status_code = 401
+
+    return LambdaResponse(statusCode=status_code).__dict__
